@@ -1,0 +1,45 @@
+# Standards: 1.1.9
+---
+
+# 2.2.19
+
+- name: 2.2.19 - Check if telnet is installed
+  yum:
+    list: telnet-server
+  register: telnet_package_status
+  tags:
+    - level-1
+    - "2.2.19"
+    - scored
+
+- name: 2.2.19 Ensure telnet server is not enabled (Scored)
+  command: systemctl is-enabled telnet.socket
+  register: which_2_2_19
+  ignore_errors: True
+  changed_when: False
+  when: telnet_package_status is defined and 'installed' in telnet_package_status.results[0].yumstate
+  tags:
+    - level-1
+    - "2.2.19"
+    - scored
+
+- name: 2.2.19 - Display registered output
+  debug:
+    msg: Ouput message is {{ which_2_2_19 }}
+  when: which_2_2_19 is defined
+  tags:
+    - level-1
+    - "2.2.19"
+    - scored
+
+- name: 2.2.19 - Ensure telnet service is disabled
+  systemd:
+    name: telnet.socket
+    state: stopped
+    enabled: False
+  when: which_2_2_19 is defined and 'disabled' not in which_2_2_19
+
+  tags:
+    - level-1
+    - "2.2.19"
+    - scored

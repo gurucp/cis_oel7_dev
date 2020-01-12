@@ -1,0 +1,8 @@
+---
+
+- hosts: app01
+  gather_facts: true
+  become: yes
+
+  roles:
+    - cis_hot_fix

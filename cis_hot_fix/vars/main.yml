@@ -1,0 +1,9 @@
+---
+# Supported OS 
+cis_target_os_distribution:
+- "OracleLinux"
+
+# vars file for cis_hot_fix
+cis_modprobe_conf_filename: "/etc/modprobe.d/CIS.conf"
+
+cis_ol7_v210_1.1.1.1_test1_output: "install /bin/true"
