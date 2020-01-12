@@ -37,7 +37,9 @@
     name: telnet.socket
     state: stopped
     enabled: False
-  when: which_2_2_19 is defined and 'disabled' not in which_2_2_19
+  when: 
+    - which_2_2_19 is defined and 'disabled' not in which_2_2_19
+    - telnet_package_status is defined and 'installed' in telnet_package_status.results[0].yumstate
 
   tags:
     - level-1
