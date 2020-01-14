@@ -10,7 +10,7 @@
     - "5.2.13"
     - scored
 
-- name: 5.2.13 - Ensure SSH Client Alive Interval is configured
+- name: 5.2.13 - Ensure SSH Login Grace Time is configured
   lineinfile:
     regexp: "^LoginGraceTime\\s+"
     line: "LoginGraceTime {{ cis_sshd_login_grace_time }}"
