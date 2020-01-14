@@ -27,7 +27,7 @@
     path: "/etc/passwd-"
     owner: root
     group: root
-    mode: 0600
+    mode: 0644
   when: cis_st.stat.mode != 0600
   tags:
     - level-1
