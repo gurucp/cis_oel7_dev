@@ -99,8 +99,7 @@ cis_enable_syslog_ng: false # Set to true if syslog_ng should be enabled/configu
 cis_syslog_ng_file_perms: "0640"
 
 # 5.2.13
-cis_sshd_client_alive_interval: 300
-cis_sshd_client_alive_count_max: 0
+cis_sshd_login_grace_time: 300
 
 # 5.2.15
 cis_sshd_allow_users: "" # A comma-delimited list of users to allow ssh access to
