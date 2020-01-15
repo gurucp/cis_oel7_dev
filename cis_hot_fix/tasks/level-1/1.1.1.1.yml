@@ -63,6 +63,7 @@
 - name: 1.1.1.1 - Logging Task 
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
     line: "CIS - 1.1.1.1 : insert install cramfs /bin/true into {{ cis_modprobe_conf_filename }}"
   when: action_1_1_1_1_01 is defined and action_1_1_1_1_01.changed  
   tags:
@@ -75,6 +76,7 @@
 - name: 1.1.1.1 - Logging Task
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
     line: "CIS - 1.1.1.1 : Create  {{ cis_modprobe_conf_filename }} with content 'install cramfs /bin/true'"
   when: action_1_1_1_1_02 is defined and action_1_1_1_1_02.changed 
   
@@ -87,6 +89,7 @@
 - name: 1.1.1.1 - Logging Task
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
     line: "CIS - 1.1.1.1 : rmmod cramfs"
   when: action_1_1_1_1_03 is defined and action_1_1_1_1_03.changed 
   
