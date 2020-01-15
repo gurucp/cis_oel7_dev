@@ -22,6 +22,9 @@ cis_aide_src_database_filename: "/var/lib/aide/aide.db.new.gz"
 # 1.4.1 - Ensure permissions on bootloader config are configured
 cis_grub_bootloader_filename: "/boot/grub2/grub.cfg"
 
+# 1.4.3 - Ensure authentication required for single user mode (Scored)
+cis_sysconfig_rescue_filename = "/usr/lib/systemd/system/rescue.service"
+cis_sysconfig_emergency_filename = "/usr/lib/systemd/system/emergency.service"
 
 # 1.3.2 - Ensure filesystem integrity is regularly checked (Scored)
 cis_aide_cron_user: "root"

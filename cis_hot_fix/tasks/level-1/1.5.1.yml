@@ -12,6 +12,17 @@
     - "1.5.1"
     - scored
 
+- name: 1.5.1 - Prepare the file list on the remote machine
+  find:
+    paths: /etc/security/limits.d/
+    patterns: "*.conf"
+  register: file_list_1_5_1
+  changed_when: False
+  tags:
+    - level-1
+    - "1.5.1"
+    - scored
+
 - name: 1.5.1 - Ensure core dumps are restricted
   copy:
     dest: "{{ cis_security_limits_filename }}"
@@ -35,6 +46,27 @@
     - "1.5.1"
     - scored
 
+- name: 1.5.1 - Display the list of files under /etc/security/limits.d/
+  debug:
+    msg: Files to be checked under /etc/security/limits.d/"{{ item.path }}"
+  with_items: "{{ file_list_1_5_1.files }}"
+  changed_when: False
+
+
+- name: 1.5.1 -  Check if core is defined under limit.d directory
+  pam_limits:
+    dest: "{{ item.path }}"
+    comment: "Added as part of CIS Hardening"   
+    limit_item: "core"
+    limit_type: "hard"
+    domain: "*"
+    value: "0"
+  with_items: "{{ file_list_1_5_1.files }}"
+  tags:
+    - level-1
+    - "1.5.1"
+    - scored
+  
 - name: 1.5.1 - Prevent suid programs from dumping core
   sysctl:
     ignoreerrors: yes
