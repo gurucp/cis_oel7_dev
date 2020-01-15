@@ -60,8 +60,39 @@
     - "1.1.1.1"
     - scored
 
-- name: 1.1.1.1 - Ensure local CIS change log has been updated
+- name: 1.1.1.1 - Logging Task 
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
-    line: "CIS Task - 1.1.1.1   File - {{ cis_modprobe_conf_filename }}   Changed cramfs"
-  when: action_1_1_1_1-1.changed or action_1_1_1_1-2.changed or action_1_1_1_1-3.changed
+    line: "CIS - 1.1.1.1 : insert install cramfs /bin/true into {{ cis_modprobe_conf_filename }}"
+  when: action_1_1_1_1-1.changed  
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.1"
+    - scored
+
+
+- name: 1.1.1.1 - Logging Task
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    line: "CIS - 1.1.1.1 : Create  {{ cis_modprobe_conf_filename }} with content 'install cramfs /bin/true'"
+  when: action_1_1_1_1-2.changed
+  
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.1"
+    - scored
+
+- name: 1.1.1.1 - Logging Task
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    line: "CIS - 1.1.1.1 : rmmod cramfs"
+  when: action_1_1_1_1-3.changed
+  
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.1"
+    - scored
+
