@@ -5,8 +5,9 @@
 
 - name: 1.1.1.1 - Determine date and time of execution
   set_fact:
-    date_time: "{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
-    #date_time: "{{ '%Y-%m-%d %H:%M:%S' | strftime(ansible_date_time.epoch) }}"
+    #date_time: "{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    date_time: "{{ '%Y-%m-%d %H:%M:%S' | strftime(ansible_date_time.epoch) }}"
+    
   tags:
     - level-1
     - section-1
@@ -87,7 +88,7 @@
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
-    line: "{{ date_time }}: 1.1.1.1 : Create  {{ cis_modprobe_conf_filename }} with content 'install cramfs /bin/true'"
+    line: "{{ date_time }} : 1.1.1.1 : Create  {{ cis_modprobe_conf_filename }} with content 'install cramfs /bin/true'"
   when: action_1_1_1_1_02 is defined and action_1_1_1_1_02.changed 
   
   tags:
@@ -100,7 +101,7 @@
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
-    line: "{{ date_time }}: 'execute rmmod cramfs'"
+    line: "{{ date_time }} : 1.1.1.1 : 'execute rmmod cramfs'"
   when: action_1_1_1_1_03 is defined and action_1_1_1_1_03.changed 
   
   tags:
