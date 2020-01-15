@@ -1,0 +1,4 @@
+- name: 1.1.1.1 - Read local exception file
+  slurp:
+    src: "{{ cis_host_local_exceptions }}"
+  register: cis_exceptions_list
