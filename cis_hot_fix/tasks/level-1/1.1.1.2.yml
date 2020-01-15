@@ -36,3 +36,13 @@
     - "1.1.1.2"
     - scored
 
+- name: 1.1.1.2 - Ensure freevxfs module is removed from kernel
+  modprobe:
+    name: freevxfs
+    state: absent
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.2"
+    - scored
+
