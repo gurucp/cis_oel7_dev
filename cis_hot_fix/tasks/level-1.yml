@@ -1,9 +1,7 @@
 # Standards: 0.11
 ---
-- include: exceptions.yml
+
 - include: "level-1/1.1.1.1.yml"
-  when: "'1.1.1.1' not in cis_exceptions_list"
-  
 - include: "level-1/1.1.1.2.yml"
 - include: "level-1/1.1.1.3.yml"
 - include: "level-1/1.1.1.4.yml"
