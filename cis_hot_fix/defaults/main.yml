@@ -1,4 +1,4 @@
-# Standards: 1.1.32
+# Standards: 2.1.0
 ---
 
 ###############################################
@@ -13,6 +13,11 @@ cis_apply_level_2_profile: True
 # If you are running this on OCI please set it to true
 ######################################################
 cis_apply_on_oci: Flase
+
+######################################################
+# Local Exceptions
+######################################################
+cis_host_local_exceptions: /etc/cis_exceptions
 
 ######################################################
 #CIS Hot fix Ansible log. It is beeing tested
