@@ -35,3 +35,14 @@
     - section-1
     - "1.1.1.4"
     - scored
+
+
+- name: 1.1.1.4 - Ensure hfs module removed from the running kernel
+  modprobe: 
+    name: hfs
+    state: absent
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.4"
+    - scored
