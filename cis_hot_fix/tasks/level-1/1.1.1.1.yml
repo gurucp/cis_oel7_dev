@@ -27,6 +27,7 @@
     dest: "{{ cis_modprobe_conf_filename }}"
     content: "install cramfs /bin/true\n"
   when: modprobe_1_1_1_1.stat.exists is not defined or not modprobe_1_1_1_1.stat.exists
+  register: action_1_1_1_1-1
   tags:
     - level-1
     - section-1
@@ -39,6 +40,8 @@
     regexp: "^install cramfs"
     line: "install cramfs /bin/true"
   when: modprobe_1_1_1_1.stat.exists is defined and modprobe_1_1_1_1.stat.exists
+  register: action_1_1_1_1-2
+
   tags:
     - level-1
     - section-1
@@ -49,8 +52,16 @@
   modprobe:
     name: cramfs
     state: absent
+  register: action_1_1_1_1-3
+  
   tags:
     - level-1
     - section-1
     - "1.1.1.1"
     - scored
+
+- name: 1.1.1.1 - Ensure local CIS change log has been updated
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    line: "CIS Task - 1.1.1.1   File - {{ cis_modprobe_conf_filename }}   Changed cramfs"
+  when: action_1_1_1_1-1.changed or action_1_1_1_1-2.changed or action_1_1_1_1-3.changed
