@@ -49,3 +49,8 @@
   modprobe:
     name: cramfs
     state: absent
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.1"
+    - scored
