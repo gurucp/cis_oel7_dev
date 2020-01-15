@@ -2997,3 +2997,61 @@ permissions manually
 2020-01-12 17:57:33,420 p=vagrant u=3833 | ok: [app01] => (item={u'rusr': True, u'uid': 0, u'rgrp': True, u'xoth': False, u'islnk': False, u'woth': False, u'nlink': 1, u'issock': False, u'mtime': 1578851722.5762167, u'gr_name': u'root', u'path': u'/etc/yum.repos.d/virt-ol7.repo', u'xusr': False, u'atime': 1578851774.9471529, u'inode': 92744, u'isgid': False, u'size': 225, u'isdir': False, u'ctime': 1578851722.5762167, u'isblk': False, u'wgrp': False, u'xgrp': False, u'isuid': False, u'dev': 64512, u'roth': True, u'isreg': True, u'isfifo': False, u'mode': u'0644', u'pw_name': u'root', u'gid': 0, u'ischr': False, u'wusr': True})
 2020-01-12 17:57:33,462 p=vagrant u=3833 | PLAY RECAP **********************************************************************************************************************************************************************************************************
 2020-01-12 17:57:33,465 p=vagrant u=3833 | app01                      : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2020-01-15 22:05:19,655 p=gurucp u=3169 | localhost | SUCCESS => {
+    "ansible_facts": {
+        "ansible_date_time": {
+            "date": "2020-01-15",
+            "day": "15",
+            "epoch": "1579106119",
+            "hour": "22",
+            "iso8601": "2020-01-15T16:35:19Z",
+            "iso8601_basic": "20200115T220519256963",
+            "iso8601_basic_short": "20200115T220519",
+            "iso8601_micro": "2020-01-15T16:35:19.257155Z",
+            "minute": "05",
+            "month": "01",
+            "second": "19",
+            "time": "22:05:19",
+            "tz": "IST",
+            "tz_offset": "+0530",
+            "weekday": "Wednesday",
+            "weekday_number": "3",
+            "weeknumber": "02",
+            "year": "2020"
+        }
+    },
+    "changed": false
+}
+2020-01-15 22:05:46,069 p=gurucp u=3232 | localhost | SUCCESS => {
+    "ansible_facts": {},
+    "changed": false
+}
+2020-01-15 22:05:57,976 p=gurucp u=3288 | localhost | SUCCESS => {
+    "ansible_facts": {},
+    "changed": false
+}
+2020-01-15 22:06:05,329 p=gurucp u=3341 | localhost | SUCCESS => {
+    "ansible_facts": {
+        "ansible_date_time": {
+            "date": "2020-01-15",
+            "day": "15",
+            "epoch": "1579106165",
+            "hour": "22",
+            "iso8601": "2020-01-15T16:36:05Z",
+            "iso8601_basic": "20200115T220605210994",
+            "iso8601_basic_short": "20200115T220605",
+            "iso8601_micro": "2020-01-15T16:36:05.211127Z",
+            "minute": "06",
+            "month": "01",
+            "second": "05",
+            "time": "22:06:05",
+            "tz": "IST",
+            "tz_offset": "+0530",
+            "weekday": "Wednesday",
+            "weekday_number": "3",
+            "weeknumber": "02",
+            "year": "2020"
+        }
+    },
+    "changed": false
+}

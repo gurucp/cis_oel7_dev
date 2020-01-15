@@ -1,0 +1,22 @@
+{
+    "ansible_date_time": {
+        "date": "2020-01-15",
+        "day": "15",
+        "epoch": "1579106165",
+        "hour": "22",
+        "iso8601": "2020-01-15T16:36:05Z",
+        "iso8601_basic": "20200115T220605210994",
+        "iso8601_basic_short": "20200115T220605",
+        "iso8601_micro": "2020-01-15T16:36:05.211127Z",
+        "minute": "06",
+        "month": "01",
+        "second": "05",
+        "time": "22:06:05",
+        "tz": "IST",
+        "tz_offset": "+0530",
+        "weekday": "Wednesday",
+        "weekday_number": "3",
+        "weeknumber": "02",
+        "year": "2020"
+    }
+}
