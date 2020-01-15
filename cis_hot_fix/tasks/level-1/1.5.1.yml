@@ -27,7 +27,7 @@
   copy:
     dest: "{{ cis_security_limits_filename }}"
     content: "* hard core 0\n"
-  when: security_limits_1_5_1.stat.exists is not defined or not security_limits_1_5_1.stat.exists
+  when: security_limits_1_5_1 is not defined or not security_limits_1_5_1.stat.exists
   tags:
     - level-1
     - "1.5.1"
@@ -40,7 +40,7 @@
     limit_type: "hard"
     domain: "*"
     value: "0"
-  when: security_limits_1_5_1.stat.exists is defined and security_limits_1_5_1.stat.exists
+  when: security_limits_1_5_1 is defined and security_limits_1_5_1.stat.exists
   tags:
     - level-1
     - "1.5.1"
