@@ -45,3 +45,7 @@
     - "1.1.1.1"
     - scored
 
+- name: 1.1.1.1 - Ensure cramfs module is removed from kernel
+  modprobe:
+    name: cramfs
+    state: absent
