@@ -64,7 +64,7 @@
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     line: "CIS - 1.1.1.1 : insert install cramfs /bin/true into {{ cis_modprobe_conf_filename }}"
-  when: action_1_1_1_1-1.changed  
+  when: action_1_1_1_1-1 is defined and action_1_1_1_1-1.changed  
   tags:
     - level-1
     - section-1
@@ -76,7 +76,7 @@
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     line: "CIS - 1.1.1.1 : Create  {{ cis_modprobe_conf_filename }} with content 'install cramfs /bin/true'"
-  when: action_1_1_1_1-2.changed
+  when: action_1_1_1_1-2 is defined and action_1_1_1_1-2.changed 
   
   tags:
     - level-1
@@ -88,7 +88,7 @@
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     line: "CIS - 1.1.1.1 : rmmod cramfs"
-  when: action_1_1_1_1-3.changed
+  when: action_1_1_1_1-3 is defined and action_1_1_1_1-3.changed 
   
   tags:
     - level-1
