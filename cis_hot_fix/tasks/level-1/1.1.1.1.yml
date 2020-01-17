@@ -5,7 +5,7 @@
 
 - name: 1.1.1.1 - Determine date and time of execution
   set_fact:
-    date_time: "{{ '%Y-%m-%d %H:%M:%S' | strftime(ansible_date_time.epoch) }}"
+    date_time: "{{ '%d-%m-%Y %H:%M:%S' | strftime(ansible_date_time) }}"
 
   tags:
     - level-1
