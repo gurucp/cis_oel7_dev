@@ -5,7 +5,8 @@
 
 - name: 1.1.1.1 - Determine date and time of execution
   set_fact:
-    date_time: "{{ '%d-%m-%Y %H:%M:%S' | strftime(ansible_date_time.epoch) }}"
+    date_time: "{{ lookup('pipe', 'date +%d-%m-%Y:%H:%M:%S') }}"
+    process_id: "{{ lookup('pipe', 'echo $PPID')}}"
 
   tags:
     - level-1
@@ -75,7 +76,7 @@
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
-    line: "{{ date_time }} : 1.1.1.1 : insert install cramfs /bin/true into {{ cis_modprobe_conf_filename }}"
+    line: "{{ date_time }} : {{ process_id }}: 1.1.1.1 : insert install cramfs /bin/true into {{ cis_modprobe_conf_filename }}"
   when: action_1_1_1_1_01 is defined and action_1_1_1_1_01.changed  
   tags:
     - level-1
@@ -87,7 +88,7 @@
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
-    line: "{{ date_time }} : 1.1.1.1 : Create  {{ cis_modprobe_conf_filename }} with content 'install cramfs /bin/true'"
+    line: "{{ date_time }} : {{ process_id }}: 1.1.1.1 : Create  {{ cis_modprobe_conf_filename }} with content 'install cramfs /bin/true'"
   when: action_1_1_1_1_02 is defined and action_1_1_1_1_02.changed 
   
   tags:
@@ -100,7 +101,7 @@
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
-    line: "{{ date_time }} : 1.1.1.1 : 'execute rmmod cramfs'"
+    line: "{{ date_time }} : {{ process_id }} 1.1.1.1 : 'execute rmmod cramfs'"
   when: action_1_1_1_1_03 is defined and action_1_1_1_1_03.changed 
   
   tags:
