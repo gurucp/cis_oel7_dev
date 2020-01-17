@@ -83,7 +83,7 @@
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
-    line: "{{ date_time }} : {{ process_id }} : 1.1.1.1 : Create  {{ cis_modprobe_conf_filename }} with content 'install cramfs /bin/true'"
+    line: "{{ date_time }} : {{ process_id }} : 1.1.1.1 : Append  {{ cis_modprobe_conf_filename }} with content 'install cramfs /bin/true'"
   when: action_1_1_1_1_02 is defined and action_1_1_1_1_02.changed 
   
   tags:
