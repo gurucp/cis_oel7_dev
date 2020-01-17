@@ -23,7 +23,7 @@
     - "1.1.1.1"
     - scored
 
-- name: 1.1.1.1 - Display registered value
+- name: 1.1.1.1 - Display CIS modprobe file
   debug:
     msg: CIS modprobe file - {{ modprobe_1_1_1_1.stat.path }}
   when: modprobe_1_1_1_1.stat.exists is defined and modprobe_1_1_1_1.stat.exists
