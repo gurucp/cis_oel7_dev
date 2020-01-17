@@ -51,7 +51,7 @@
   modprobe: 
     name: hfs
     state: absent
-  register: action_1_1_1_3_03
+  register: action_1_1_1_4_03
   tags:
     - level-1
     - section-1
@@ -75,7 +75,7 @@
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
     line: "{{ date_time }} : {{ process_id }} : 1.1.1.4 : Create  {{ cis_modprobe_conf_filename }} with content 'install hfs /bin/true'"
-  when: action_1.1.1.4_02 is defined and action_1.1.1.4_02.changed 
+  when: action_1_1_1_4_02 is defined and action_1_1_1_4_01.changed 
   
   tags:
     - level-1
@@ -88,7 +88,7 @@
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
     line: "{{ date_time }} : {{ process_id }} : 1.1.1.4 : 'execute rmmod hfs'"
-  when: action_1.1.1.4_03 is defined and action_1.1.1.4_03.changed 
+  when: action_1_1_1_4_03 is defined and action_1_1_1_4_01.changed 
   
   tags:
     - level-1
