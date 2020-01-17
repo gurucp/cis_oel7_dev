@@ -1,6 +1,14 @@
 # Standards: 2.1.0
 ---
 
+# Include date, time and process id finder
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.4"
+    - scored
+
 # 1.1.1.4 - Ensure mounting of hfs filesystems is disabled
 
 - name: 1.1.1.4 - Check if CIS modprobe configuration file exists
@@ -18,6 +26,7 @@
     dest: "{{ cis_modprobe_conf_filename }}"
     content: "install hfs /bin/true\n"
   when: modprobe_1_1_1_4.stat.exists is not defined or not modprobe_1_1_1_4.stat.exists
+  register: action_1_1_1_4_01
   tags:
     - level-1
     - section-1
@@ -30,6 +39,7 @@
     regexp: "^install hfs\\s+"
     line: "install hfs /bin/true"
   when: modprobe_1_1_1_4.stat.exists is defined and modprobe_1_1_1_4.stat.exists
+  register: action_1_1_1_4_02
   tags:
     - level-1
     - section-1
@@ -41,8 +51,48 @@
   modprobe: 
     name: hfs
     state: absent
+  register: action_1_1_1_3_03
   tags:
     - level-1
     - section-1
     - "1.1.1.4"
     - scored
+
+- name: 1.1.1.4 - Logging Task 
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 1.1.1.4 : insert install hfs /bin/true into {{ cis_modprobe_conf_filename }}"
+  when: action_1_1_1_4_01 is defined and action_1_1_1_4_01.changed  
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.4"
+    - scored
+
+- name: 1.1.1.4 - Logging Task
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }} : 1.1.1.4 : Create  {{ cis_modprobe_conf_filename }} with content 'install hfs /bin/true'"
+  when: action_1.1.1.4_02 is defined and action_1.1.1.4_02.changed 
+  
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.4"
+    - scored
+
+- name: 1.1.1.4 - Logging Task
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }} : 1.1.1.4 : 'execute rmmod hfs'"
+  when: action_1.1.1.4_03 is defined and action_1.1.1.4_03.changed 
+  
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.4"
+    - scored
+
