@@ -1,19 +1,9 @@
 ---
 # Standards: 2.1.0
+# Include date, time and process id finder
+- include: facts/date_time_pid.yml
 
 # 1.1.1.1 - Ensure mounting of cramfs filesystems is disabled
-
-- name: 1.1.1.1 - Determine date and time of execution
-  set_fact:
-    date_time: "{{ lookup('pipe', 'date +%d-%m-%Y:%H:%M:%S') }}"
-    process_id: "{{ lookup('pipe', 'echo $PPID')}}"
-
-  tags:
-    - level-1
-    - section-1
-    - "1.1.1.1"
-    - scored
-
 - name: 1.1.1.1 - Check if CIS modprobe configuration file exists
   stat:
     path: "{{ cis_modprobe_conf_filename }}"

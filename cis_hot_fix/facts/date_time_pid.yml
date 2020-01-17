@@ -1,0 +1,4 @@
+- name: Gathering Date, Time and process ID of ansible task
+  set_fact:
+    date_time: "{{ lookup('pipe', 'date +%d-%m-%Y:%H:%M:%S') }}"
+    process_id: "{{ lookup('pipe', 'echo $PPID')}}" 
