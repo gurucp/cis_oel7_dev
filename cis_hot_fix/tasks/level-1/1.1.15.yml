@@ -39,11 +39,11 @@
     - "1.1.15"
     - scored
 
-- name: Logging ansible action for 1.1.14
+- name: Logging ansible action for 1.1.15
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
-    line: "{{ date_time }} : {{ process_id }}: 1.1.14 : remount /dev/shm with nodev and update fstab"
+    line: "{{ date_time }} : {{ process_id }}: 1.1.15 : remount /dev/shm with nodev and update fstab"
   when: action_1_1_15 is defined and action_1_1_15.changed
 
   tags:

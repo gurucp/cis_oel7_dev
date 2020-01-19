@@ -1,5 +1,11 @@
 # Standards: 2.1.0
 ---
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "1.1.16"
+    - scored
 
 # 1.1.16 Ensure nosuid option set on /dev/shm partition
 # Adding custom facter script
@@ -19,6 +25,19 @@
     opts: "{{ item.options.split(',') | union(['nosuid']) | join(',') }}"
   when: item.mount == '/dev/shm'
   with_items: "{{ all_mounts.stdout | default('{}') | from_json }}"
+  tags:
+    - level-1
+    - section-1
+    - "1.1.16"
+    - scored
+
+- name: Logging ansible action for - 1.1.16
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 1.1.16 : remount /dev/shm with nodev and update fstab"
+  when: action_1_1_16 is defined and action_1_1_16.changed
+
   tags:
     - level-1
     - section-1
