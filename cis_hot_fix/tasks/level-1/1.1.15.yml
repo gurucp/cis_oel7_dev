@@ -16,7 +16,7 @@
     - scored
 
 # Adding custom facter script
-- include: facts/all_mounts_facts.yml
+- include: all_mounts_facts.yml
   tags:
     - level-1
     - section-1
