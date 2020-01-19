@@ -1,6 +1,13 @@
 # Standards: 2.1.0
 ---
 
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.5"
+    - scored
+
 # 1.1.1.7 - Ensure mounting of udf filesystems is disabled
 
 - name: 1.1.1.7 - Check if CIS modprobe configuration file exists
@@ -18,6 +25,7 @@
     dest: "{{ cis_modprobe_conf_filename }}"
     content: "install udf /bin/true\n"
   when: modprobe_1_1_1_7.stat.exists is not defined or not modprobe_1_1_1_7.stat.exists
+  register: action_1_1_1_7_01
   tags:
     - level-1
     - section-1
@@ -30,9 +38,61 @@
     regexp: "^install udf"
     line: "install udf /bin/true"
   when: modprobe_1_1_1_7.stat.exists is defined and modprobe_1_1_1_7.stat.exists
+  register: action_1_1_1_7_02
   tags:
     - level-1
     - section-1
     - "1.1.1.7"
     - scored
 
+- name: 1.1.1.7 - Ensure udf module is removed from kernel
+  modprobe:
+    name: udf
+    state: absent
+  register: action_1_1_1_7_03
+  
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.7"
+    - scored
+
+
+- name: 1.1.1.7 - Logging Task 
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 1.1.1.7 : insert install udf /bin/true into {{ cis_modprobe_conf_filename }}"
+  when: action_1_1_1_7_01 is defined and action_1_1_1_7_01.changed 
+
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.7"
+    - scored
+
+- name: 1.1.1.7 - Logging Task 
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 1.1.1.7 : Append install udf /bin/true into {{ cis_modprobe_conf_filename }}"
+  when: action_1_1_1_7_02 is defined and action_1_1_1_7_02.changed 
+
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.7"
+    - scored
+
+- name: 1.1.1.7 - Logging Task 
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 1.1.1.7 : execute 'rmmod udf'"
+  when: action_1_1_1_7_03 is defined and action_1_1_1_7_03.changed 
+
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.7"
+    - scored
