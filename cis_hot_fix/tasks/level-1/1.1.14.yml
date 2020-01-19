@@ -1,5 +1,13 @@
 # Standards: 2.1.0
 ---
+# Standards: 2.1.0
+# Include date, time and process id finder
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.14"
+    - scored
 
 # 1.1.14 Ensure nodev option set on /home partition
 
@@ -12,6 +20,20 @@
     opts: "{{ item.options.split(',') | union(['nodev']) | join(',') }}"
   when: item.mount == '/home'
   with_items: "{{ ansible_mounts }}"
+  register: action_1_1_14
+  tags:
+    - level-1
+    - section-1
+    - "1.1.14"
+    - scored
+
+- name: Logging ansible action for 1.1.14
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 1.1.14 : remount /home with nodev and update fstab"
+  when: action_1_1_14 is defined and action_1_1_14.changed
+
   tags:
     - level-1
     - section-1
