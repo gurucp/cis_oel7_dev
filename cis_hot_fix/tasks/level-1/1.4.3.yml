@@ -53,11 +53,11 @@
 
 - name: 1.4.3 - Ensure authentication enabled for single user mode - rescue
   replace:
-    backup: yes
-    dest: "{{ cis_sysconfig_rescue_filename }}"
-    regexp: '^ExecStart='
+    path: "{{ cis_sysconfig_rescue_filename }}"
     after: '^ExecStartPre=\-\/bin\/echo '
-    line: 'ExecStart=-/bin/sh -c \"/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"'
+    before: '^Type=idle'
+    regexp: '^ExecStart='
+    replace: 'ExecStart=-/bin/sh -c \"/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"'
   when: 
     - sysconfig_rescue_1_4_3 is defined and sysconfig_rescue_1_4_3.stat.exists
     - cis_rescue_1_4_3_output.rc != 0
@@ -78,6 +78,22 @@
     - sysconfig_emergency_1_4_3 is defined and sysconfig_emergency_1_4_3.stat.exists
     - cis_rescue_1_4_3_output != 0
   register: action_1_4_3_02
+  tags:
+    - level-1
+    - "1.4.3"
+    - scored
+  
+- name: 1.4.3 - Ensure authentication enabled for single user mode - rescue
+  replace:
+    path: "{{ cis_sysconfig_emergency_filename }}"
+    after: '^ExecStartPre=\-\/bin\/echo '
+    before: '^Type=idle'
+    regexp: '^ExecStart='
+    replace: 'ExecStart=-/bin/sh -c \"/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"'
+  when: 
+    - sysconfig_rescue_1_4_3 is defined and sysconfig_rescue_1_4_3.stat.exists
+    - cis_rescue_1_4_3_output.rc != 0
+  register: action_1_4_3_01
   tags:
     - level-1
     - "1.4.3"
