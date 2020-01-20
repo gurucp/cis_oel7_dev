@@ -84,23 +84,6 @@
     - "1.4.3"
     - scored
 
-
-- name: 1.4.3 - Ensure authentication enabled for single user mode - emergency
-  replace:
-    path: "{{ cis_sysconfig_emergency_filename }}"
-    after: '^ExecStartPre=\-\/bin\/echo '
-    before: '^Type=idle'
-    regexp: '^ExecStart='
-    replace: 'ExecStart=-/bin/sh -c "/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"'
-  when: 
-    - cis_emergency_1_4_3_output is defined and sysconfig_rescue_1_4_3.stat.exists
-    - cis_emergency_1_4_3_output.rc != 0
-  register: action_1_4_3_02
-  tags:
-    - level-1
-    - "1.4.3"
-    - scored
-
 - name: 1.4.3 - Logging action on {{ cis_sysconfig_rescue_filename }}
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
