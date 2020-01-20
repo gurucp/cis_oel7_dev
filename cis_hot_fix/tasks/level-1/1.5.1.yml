@@ -70,7 +70,7 @@
   sysctl:
     ignoreerrors: yes
     name: fs.suid_dumpable
-    value: 0
+    value: '0'
     state: present
   register: action_1_5_1_03
   tags:
@@ -100,13 +100,12 @@
     - "1.5.1"
     - scored
 
-
-- name: 1.5.1 - Logging action on files under /etc/security/limits.d dir
+- name: '1.5.1 - Logging action on files under /etc/security/limits.d dir'
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
     line: "{{ date_time }} : {{ process_id }}: 1.5.1 : * hard core 0 {{ item.path }}"
-  with_items: "{{ file_list_1_5_1 }}"
+  with_items: "{{ file_list_1_5_1.files }}"
   when: action_1_5_1_02 is defined and action_1_5_1_02.changed
   tags:
     - level-1
