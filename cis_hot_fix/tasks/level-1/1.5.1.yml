@@ -101,7 +101,7 @@
     - scored
 
 
-- name: 1.5.1 - Logging action on {{ item.path }}
+- name: 1.5.1 - Logging action on files under /etc/security/limits.d dir
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
