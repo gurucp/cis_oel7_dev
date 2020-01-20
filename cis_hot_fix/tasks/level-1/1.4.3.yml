@@ -1,6 +1,13 @@
 # Standards: 0.11
 ---
 
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "1.4.3"
+    - scored
+  
 # 1.4.3 - Ensure interactive boot is not enabled
 
 - name: 1.4.3 - Check if sysconfig resuce file exists
@@ -22,8 +29,8 @@
     - scored
 
 
-- name: 1.4.3 - Ensure authentication enabled for single user mode - resuce
-  command: grep "/sbin/sulogin" "{{ cis_sysconfig_rescue_filename }}"
+- name: '1.4.3 - Ensure authentication enabled for single user mode - resuce'
+  command: grep '^ExecStart=' "{{ cis_sysconfig_rescue_filename }}" | grep '/sbin/sulogin'
   register: cis_rescue_1_4_3_output
   ignore_errors: True
   changed_when: False
@@ -33,9 +40,9 @@
     - "1.4.3"
     - scored
 
-- name: 1.4.3 - Ensure authentication enabled for single user mode - emergency
-  command: grep "/sbin/sulogin" "{{ cis_sysconfig_emergency_filename }}"
-  register: cis_rescue_1_4_3_output
+- name: '1.4.3 - Ensure authentication enabled for single user mode - emergency'
+  command: grep '^ExecStart=' "{{ cis_sysconfig_emergency_filename }}" | grep '/sbin/sulogin'
+  register: cis_emergency_1_4_3_output
   ignore_errors: True
   changed_when: False
   when: sysconfig_emergency_1_4_3 is defined and sysconfig_emergency_1_4_3.stat.exists
@@ -44,22 +51,23 @@
     - "1.4.3"
     - scored
 
-- name: 1.4.3 - Ensure authentication enabled for single user mode - resuce
-  lineinfile:
+- name: 1.4.3 - Ensure authentication enabled for single user mode - rescue
+  replace:
     dest: "{{ cis_sysconfig_rescue_filename }}"
     regexp: '^ExecStart='
     insertafter: '^ExecStartPre=\-\/bin\/echo '
     line: 'ExecStart=-/bin/sh -c \"/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"'
   when: 
     - sysconfig_rescue_1_4_3 is defined and sysconfig_rescue_1_4_3.stat.exists
-    - cis_rescue_1_4_3_output != 0
+    - cis_rescue_1_4_3_output.rc != 0
+  register: action_1_4_3_01
   tags:
     - level-1
     - "1.4.3"
     - scored
 
 - name: 1.4.3 - Ensure authentication enabled for single user mode - emergency
-  lineinfile:
+  replace:
     dest: "{{ cis_sysconfig_emergency_filename }}"
     regexp: '^ExecStart='
     insertafter: '^ExecStartPre=\-\/bin\/echo '
@@ -67,6 +75,29 @@
   when: 
     - sysconfig_emergency_1_4_3 is defined and sysconfig_emergency_1_4_3.stat.exists
     - cis_rescue_1_4_3_output != 0
+  register: action_1_4_3_02
+  tags:
+    - level-1
+    - "1.4.3"
+    - scored
+
+- name: 1.4.3 - Logging action on {{ cis_sysconfig_rescue_filename }}
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 1.4.1 : insert /sbin/sulogin {{ cis_sysconfig_rescue_filename }}"
+  when: action_1_4_3_01 is defined and action_1_4_3_01.changed  
+  tags:
+    - level-1
+    - "1.4.3"
+    - scored
+
+- name: 1.4.3 - Logging action on {{ cis_sysconfig_emergency_filename }}
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 1.4.1 : insert /sbin/sulogin {{ cis_sysconfig_emergency_filename }}"
+  when: action_1_4_3_02 is defined and action_1_4_3_02.changed  
   tags:
     - level-1
     - "1.4.3"
