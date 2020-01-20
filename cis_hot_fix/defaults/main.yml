@@ -29,6 +29,15 @@ cis_hot_fix_ansible_log: "/var/log/cis_hot_fix_ansible_log"
 cis_aide_database_filename: "/var/lib/aide/aide.db.gz"
 cis_aide_src_database_filename: "/var/lib/aide/aide.db.new.gz"
 
+# 1.3.2 - Ensure filesystem integrity is regularly checked
+cis_aide_cron_user: "root"
+cis_aide_cron_job: "/usr/sbin/aide --check"
+cis_aide_cron_minute: 0
+cis_aide_cron_hour: 5
+cis_aide_cron_dow: "*" # Day of week
+cis_aide_cron_dom: "*" # Day of month
+cis_aide_cron_month: "*"
+
 # 1.4.1 - Ensure permissions on bootloader config are configured
 cis_grub_bootloader_filename: "/boot/grub2/grub.cfg"
 
