@@ -21,7 +21,7 @@
 
 - name: 1.4.1 - Check if grub {{ cis_grub_bootloader_user_filename }} bootloader file exists
   stat:
-    path: "{{ cis_grub_bootloader_filename }}"
+    path: "{{ cis_grub_bootloader_user_filename }}"
   register: grub_1_4_1_02
   tags:
     - level-1
