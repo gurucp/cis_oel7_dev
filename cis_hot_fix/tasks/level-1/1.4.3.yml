@@ -53,6 +53,7 @@
 
 - name: 1.4.3 - Ensure authentication enabled for single user mode - rescue
   replace:
+    backup: yes
     dest: "{{ cis_sysconfig_rescue_filename }}"
     regexp: '^ExecStart='
     insertafter: '^ExecStartPre=\-\/bin\/echo '
@@ -68,6 +69,7 @@
 
 - name: 1.4.3 - Ensure authentication enabled for single user mode - emergency
   replace:
+    backup: yes
     dest: "{{ cis_sysconfig_emergency_filename }}"
     regexp: '^ExecStart='
     insertafter: '^ExecStartPre=\-\/bin\/echo '
