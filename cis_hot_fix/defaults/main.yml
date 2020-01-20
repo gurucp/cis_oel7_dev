@@ -40,6 +40,8 @@ cis_aide_cron_month: "*"
 
 # 1.4.1 - Ensure permissions on bootloader config are configured
 cis_grub_bootloader_filename: "/boot/grub2/grub.cfg"
+cis_grub_bootloader_user_filename: "/boot/grub2/user.cfg"
+
 
 # 1.4.3 - Ensure authentication required for single user mode (Scored)
 cis_sysconfig_rescue_filename: "/usr/lib/systemd/system/rescue.service"

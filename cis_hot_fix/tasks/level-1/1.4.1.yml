@@ -1,26 +1,81 @@
 # Standards: 2.1.0
 ---
 
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "1.4.1"
+    - scored
+
 # 1.4.1 Ensure permissions on bootloader config are configured
 
-- name: 1.4.1 - Check if grub bootloader file exists
+- name: 1.4.1 - Check if grub {{ cis_grub_bootloader_filename }} bootloader file exists
   stat:
     path: "{{ cis_grub_bootloader_filename }}"
-  register: grub_1_4_1
+  register: grub_1_4_1_01
   tags:
     - level-1
     - "1.4.1"
     - scored
 
-- name: 1.4.1 - Set permissions on grub configuration
+- name: 1.4.1 - Check if grub {{ cis_grub_bootloader_user_filename }} bootloader file exists
+  stat:
+    path: "{{ cis_grub_bootloader_filename }}"
+  register: grub_1_4_1_02
+  tags:
+    - level-1
+    - "1.4.1"
+    - scored
+
+
+- name: 1.4.1 - Set permissions on grub configuration {{ cis_grub_bootloader_filename }}
   file:
     path: "{{ cis_grub_bootloader_filename }}"
     owner: root
     group: root
     mode:  "og-rwx"
     state: file
-  when: grub_1_4_1.stat.exists
+  when: grub_1_4_1_01.stat.exists
+  register: action_1_4_1_01
   tags:
     - level-1
     - "1.4.1"
     - scored
+
+- name: 1.4.1 - Set permissions on grub configuration {{ cis_grub_bootloader_user_filename }}
+  file:
+    path: "{{ cis_grub_bootloader_user_filename }}"
+    owner: root
+    group: root
+    mode:  "og-rwx"
+    state: file
+  when: grub_1_4_1_02.stat.exists
+  register: action_1_4_1_02
+  tags:
+    - level-1
+    - "1.4.1"
+    - scored
+
+- name: 1.4.1 - Logging action on {{ cis_grub_bootloader_filename }}
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 1.4.1 : Execute 'chown root:root /boot/grub2/grub.cfg and chmod og-rwx /boot/grub2/grub.cfg '"
+  when: action_1_4_1_01 is defined and action_1_4_1_01.changed  
+  tags:
+    - level-1
+    - "1.4.1"
+    - scored
+  
+- name: 1.4.1 - Logging action on {{ cis_grub_bootloader_user_filename }}
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 1.4.1 : Execute 'chown root:root /boot/grub2/user.cfg and chmod og-rwx /boot/grub2/user.cfg'"
+  when: action_1_4_1_02 is defined and action_1_4_1_02.changed  
+  tags:
+    - level-1
+    - "1.4.1"
+    - scored
+  
