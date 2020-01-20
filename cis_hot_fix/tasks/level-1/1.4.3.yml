@@ -57,7 +57,6 @@
     backup: yes
     regexp: "^ExecStart="
     insertafter: "^ExecStartPre=-/bin/echo"
-    insertbefore: "^Type=idle"
     line: 'ExecStart=-/bin/sh -c "/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"'
   when: 
     - sysconfig_rescue_1_4_3 is defined and sysconfig_rescue_1_4_3.stat.exists
@@ -75,7 +74,6 @@
     backup: yes
     regexp: "^ExecStart="
     insertafter: "^ExecStartPre=-/bin/echo"
-    insertbefore: "^Type=idle"
     line: 'ExecStart=-/bin/sh -c "/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"'
   when: 
     - cis_emergency_1_4_3_output is defined and sysconfig_emergency_1_4_3.stat.exists
