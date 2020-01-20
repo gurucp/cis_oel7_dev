@@ -30,7 +30,7 @@
 
 
 - name: '1.4.3 - Ensure authentication enabled for single user mode - resuce'
-  command: grep '^ExecStart=' "{{ cis_sysconfig_rescue_filename }}" | grep '/sbin/sulogin'
+  command: grep -xq 'ExecStart=-/bin/sh -c "*/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"' "{{ cis_sysconfig_rescue_filename }}"
   register: cis_rescue_1_4_3_output
   ignore_errors: True
   changed_when: False
@@ -41,7 +41,7 @@
     - scored
 
 - name: '1.4.3 - Ensure authentication enabled for single user mode - emergency'
-  command: grep '^ExecStart=' "{{ cis_sysconfig_emergency_filename }}" | grep '/sbin/sulogin'
+  command: grep -xq 'ExecStart=-/bin/sh -c "*/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"' "{{ cis_sysconfig_emergency_filename }}"
   register: cis_emergency_1_4_3_output
   ignore_errors: True
   changed_when: False
@@ -57,7 +57,7 @@
     after: '^ExecStartPre=\-\/bin\/echo '
     before: '^Type=idle'
     regexp: '^ExecStart='
-    replace: 'ExecStart=-/bin/sh -c \"/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"'
+    replace: 'ExecStart=-/bin/sh -c "/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"'
   when: 
     - sysconfig_rescue_1_4_3 is defined and sysconfig_emergency_1_4_3.stat.exists
     - cis_rescue_1_4_3_output.rc != 0
@@ -73,7 +73,7 @@
     after: '^ExecStartPre=\-\/bin\/echo '
     before: '^Type=idle'
     regexp: '^ExecStart='
-    replace: 'ExecStart=-/bin/sh -c \"/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"'
+    replace: 'ExecStart=-/bin/sh -c "/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"'
   when: 
     - cis_emergency_1_4_3_output is defined and sysconfig_rescue_1_4_3.stat.exists
     - cis_emergency_1_4_3_output.rc != 0
