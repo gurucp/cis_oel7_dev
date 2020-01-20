@@ -88,7 +88,7 @@
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
-    line: "{{ date_time }} : {{ process_id }}: 1.4.1 : insert /sbin/sulogin {{ cis_sysconfig_rescue_filename }}"
+    line: "{{ date_time }} : {{ process_id }}: 1.4.3 : insert /sbin/sulogin {{ cis_sysconfig_rescue_filename }}"
   when: action_1_4_3_01 is defined and action_1_4_3_01.changed  
   tags:
     - level-1
@@ -99,7 +99,7 @@
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
-    line: "{{ date_time }} : {{ process_id }}: 1.4.1 : insert /sbin/sulogin {{ cis_sysconfig_emergency_filename }}"
+    line: "{{ date_time }} : {{ process_id }}: 1.4.3 : insert /sbin/sulogin {{ cis_sysconfig_emergency_filename }}"
   when: action_1_4_3_02 is defined and action_1_4_3_02.changed  
   tags:
     - level-1
