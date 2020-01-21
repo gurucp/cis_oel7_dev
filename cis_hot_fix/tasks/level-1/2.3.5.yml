@@ -1,0 +1,33 @@
+# Standards: 2.1.0
+---
+
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "2.3.5"
+    - scored
+
+# 2.3.5 Ensure LDAP client is not installed
+
+- name: 2.3.5 - Ensure LDAP client is not installed
+  yum:
+    name: "openldap-clients"
+    state: absent
+  register: action_2_3_5
+  tags:
+    - level-1
+    - section-2
+    - "2.3.5"
+    - scored
+
+- name: 2.3.5 - Logging action 'yum remove openldap-clients'
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 2.3.5 : Execute 'yum remove openldap-clients'"
+  when: action_2_3_5 is defined and action_2_3_5.changed
+  tags:
+    - level-1
+    - "2.3.5"
+    - scored
