@@ -32,7 +32,7 @@
 - name: 1.5.4 - Restore prelinked binaries
   command: prelink -ua
   when: "'installed' in which_1_5_4.results"
-  register: action_1_5_3_01
+  register: action_1_5_4_01
 
   tags:
     - level-1
@@ -44,10 +44,23 @@
   yum:
     name: prelink
     state: absent
-  register: action_1_5_3_02
+  register: action_1_5_4_02
   tags:
     - level-1
     - "1.5.4"
     - scored
 
--
+- name: 1.5.4 - Logging action uninstall prelink binary
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 1.5.4 : Execute 'prelink -ua and yum remove prelink'"
+  when: action_1_5_4_01 is defined and action_1_5_4_01.changed
+  
+  tags:
+    - level-1
+    - "1.5.4"
+    - scored
+  
+  
+  
