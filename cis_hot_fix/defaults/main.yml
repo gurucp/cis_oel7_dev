@@ -57,9 +57,9 @@ cis_3_1_2_files:
 
 
 # 3.2.1
-cis_v_3_2_1_ipv4_conf_all_accept_source_route: { proc_src: '/proc/sys/net/ipv4/conf/all/accept_source_route', kernel_param: 'net.ipv4.conf.all.accept_source_route', value: 0 }
-cis_v_3_2_1_ipv4_conf_default_accept_source_route: { proc_src: '/proc/sys/net/ipv4/conf/default/accept_source_route', kernel_param: 'net.ipv4.conf.default.accept_source_route', value: 0 }
-
+cis_3_2_1_files:
+ - 'net.ipv4.conf.all.accept_source_route'
+ - 'net.ipv4.conf.default.accept_source_route'
 
 # 3.2.2
 cis_v_3_2_2_ipv4_conf_all_accept_redirects: { proc_src: '/proc/sys/net/ipv4/conf/all/accept_redirects', kernel_param: 'net.ipv4.conf.all.accept_redirects', value: 0 }
