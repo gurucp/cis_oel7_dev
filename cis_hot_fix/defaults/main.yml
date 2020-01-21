@@ -50,13 +50,10 @@ cis_sysconfig_emergency_filename: "/usr/lib/systemd/system/emergency.service"
 # 1.5.1
 cis_security_limits_filename: "/etc/security/limits.conf"
 
-# 3.1.1
-cis_v_3_1_1_ipv4_ip_forward: { proc_src: '/proc/sys/net/ipv4/ip_forward', kernel_param: 'net.ipv4.ip_forward', value: 0 }
-
-
 # 3.1.2
-cis_v_3_1_2_ipv4_conf_all_send_redirects: { proc_src: '/proc/sys/net/ipv4/conf/all/send_redirects', kernel_param: 'net.ipv4.conf.all.send_redirects', value: 0 }
-cis_v_3_1_2_ipv4_conf_default_send_redirects: { proc_src: '/proc/sys/net/ipv4/conf/default/send_redirects', kernel_param: 'net.ipv4.conf.default.send_redirects', value: 0 }
+cis_3_1_2_files:
+ - 'net.ipv4.conf.all.send_redirects'
+ - 'net.ipv4.conf.default.send_redirects'
 
 
 # 3.2.1
