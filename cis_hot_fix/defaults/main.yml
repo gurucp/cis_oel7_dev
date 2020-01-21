@@ -62,9 +62,9 @@ cis_3_2_1_files:
  - 'net.ipv4.conf.default.accept_source_route'
 
 # 3.2.2
-cis_v_3_2_2_ipv4_conf_all_accept_redirects: { proc_src: '/proc/sys/net/ipv4/conf/all/accept_redirects', kernel_param: 'net.ipv4.conf.all.accept_redirects', value: 0 }
-cis_v_3_2_2_ipv4_conf_default_accept_redirects: { proc_src: '/proc/sys/net/ipv4/conf/default/accept_redirects', kernel_param: 'net.ipv4.conf.default.accept_redirects', value: 0 }
-cis_v_3_2_2_ipv4_route_flush: { proc_src: '/proc/sys/net/ipv4/route/flush', kernel_param: 'flush', value: 1 }
+cis_3_2_2_files:
+ - 'net.ipv4.conf.all.accept_redirects'
+ - 'net.ipv4.conf.default.accept_redirects'
 
 
 # 3.2.3
