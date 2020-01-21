@@ -1,6 +1,13 @@
 # Standards: 2.1.0
 ---
 
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "1.5.4"
+    - scored
+  
 # 1.5.4 Ensure prelink is disabled
 
 - name: 1.5.4 - Check if prelink binary exists
@@ -25,6 +32,8 @@
 - name: 1.5.4 - Restore prelinked binaries
   command: prelink -ua
   when: "'installed' in which_1_5_4.results"
+  register: action_1_5_3_01
+
   tags:
     - level-1
     - "1.5.4"
@@ -35,7 +44,10 @@
   yum:
     name: prelink
     state: absent
+  register: action_1_5_3_02
   tags:
     - level-1
     - "1.5.4"
     - scored
+
+-
