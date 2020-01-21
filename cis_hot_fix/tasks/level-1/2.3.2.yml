@@ -1,14 +1,33 @@
 # Standards: 2.1.0
 ---
 
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "2.3.2"
+    - scored
+    
 # 2.3.2 Ensure rsh client is not installed
 
 - name: 2.3.2 - Ensure rsh client is not installed
   yum:
     name: "rsh"
     state: absent
+  register: action_2_3_2
   tags:
     - level-1
     - section-2
+    - "2.3.2"
+    - scored
+
+- name: 2.3.2 - Logging action 'yum remove rsh'
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 2.3.2 : Execute 'yum remove rsh'"
+  when: action_2_3_2 is defined and action_2_3_2.changed
+  tags:
+    - level-1
     - "2.3.2"
     - scored
