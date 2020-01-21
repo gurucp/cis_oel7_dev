@@ -32,7 +32,7 @@
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
     line: "{{ date_time }} : {{ process_id }}: 3.1.2 : Execute 'sysctl -w {{ item }} = 0'"
-    with_item: "{{ cis_3_1_2_files }}"
+  with_item: "{{ cis_3_1_2_files }}"
   when: action_3_1_2 is defined and action_3_1_2.changed
   tags:
     - level-1
