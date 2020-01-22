@@ -1,7 +1,13 @@
-# Standards: 1.1.27
+# Standards: 2.1.0
 ---
 
 # 4.1.2 Ensure auditd Service is enabled
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "4.1.2"
+    - scored
 
 - name: 4.1.2 - Check if auditd is installed
   yum:
@@ -21,8 +27,21 @@
     state: started
   when:
   ignore_errors: false
+  register: action_4_1_2
   tags:
     - level-2
     - section-4
+    - "4.1.2"
+    - scored
+
+- name: 4.1.2 - Logging Task 'Turn on the auditd daemon to record system events'
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }} : 4.1.2 : 'systemctl enable auditd"
+  when: action_4_1_2 is defined and action_4_1_2.changed 
+  tags:
+    - level-1
+    - section-1
     - "4.1.2"
     - scored
