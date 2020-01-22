@@ -1,16 +1,37 @@
 # Standards: 2.1.0
 ---
 
-# 3.4.5 Ensure permissions on /etc/hosts.deny are configured
-
+# 3.4.5 Ensure permissions on /etc/hosts.allow are configured
+# Include date, time and process id finder
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "3.4.5"
+    - scored
+  
 - name: 3.4.5 - Ensure permissions on /etc/hosts.deny are configured
   file:
     path: "/etc/hosts.deny"
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
+  register: action_3_4_5
   tags:
     - level-1
     - section-3
+    - "3.4.5"
+    - scored
+
+- name: 3.4.5 - Logging Task 'Ensure permissions on /etc/hosts.deny are configured'
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }} : 3.4.5 : 'chown root:root /etc/hosts.deny and chmod 644 /etc/hosts.deny'"
+  when: action_3_4_5 is defined and action_3_4_5.changed 
+  
+  tags:
+    - level-1
+    - section-1
     - "3.4.5"
     - scored

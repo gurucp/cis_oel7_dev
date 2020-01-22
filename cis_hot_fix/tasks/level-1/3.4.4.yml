@@ -23,7 +23,7 @@
     - "3.4.4"
     - scored
 
-- name: 3.4.4 - Logging Task 'Ensure TCP Wrappers is installed'
+- name: 3.4.4 - Logging Task 'Ensure permissions on /etc/hosts.allow are configured'
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
