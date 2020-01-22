@@ -27,7 +27,7 @@
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
-    line: "{{ date_time }} : {{ process_id }} : 3.4.4 : 'yum install tcp_wrappers'"
+    line: "{{ date_time }} : {{ process_id }} : 3.4.4 : 'chown root:root /etc/hosts.allow and chmod 644 /etc/hosts.allow'"
   when: action_3_4_4 is defined and action_3_4_4.changed 
   
   tags:
