@@ -94,8 +94,8 @@ cis_3_2_7_files:
   - 'net.ipv4.conf.default.rp_filter'
 
 # 3.2.8
-cis_v_3_2_8_ipv4_tcp_syncookies: { proc_src: '/proc/sys/net/ipv4/tcp_syncookies', kernel_param: 'net.ipv4.tcp_syncookies', value: 1 }
-cis_v_3_2_8_ipv4_route_flush: { proc_src: '/proc/sys/net/ipv4/route/flush', kernel_param: 'flush', value: 1 }
+cis_3_2_8_files:
+  - net.ipv4.tcp_syncookies
 
 
 # 3.6.1
