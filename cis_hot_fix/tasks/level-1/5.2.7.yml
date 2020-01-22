@@ -2,7 +2,13 @@
 ---
 
 # 5.2.7 - Ensure SSH HostbasedAuthentication is disabled
-
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "5.2.7"
+    - scored
+  
 - include: stat_sshd_config.yml
   tags:
     - level-1
@@ -16,10 +22,23 @@
     line: "HostbasedAuthentication no"
     dest: "/etc/ssh/sshd_config"
   when: sshd_config.stat.exists
+  register: action_5_2_7
   notify:
     - Restart sshd
   tags:
     - level-1
     - section-5
+    - "5.2.7"
+    - scored
+
+- name: 5.2.7 - Logging Task 'Ensure SSH HostbasedAuthentication is disabled'
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }} : 5.2.7 : 'HostbasedAuthentication no' -> /etc/ssh/sshd_config"
+  when: action_5_2_7 is defined and action_5_2_7.changed 
+  tags:
+    - level-1
+    - section-1
     - "5.2.7"
     - scored

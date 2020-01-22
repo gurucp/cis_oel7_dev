@@ -2,6 +2,12 @@
 ---
 
 # 5.2.5 -  Ensure SSH MaxAuthTries is set to 4 or less
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "5.2.5"
+    - scored
 
 - include: stat_sshd_config.yml
   tags:
@@ -16,10 +22,23 @@
     line: "MaxAuthTries {{ cis_sshd_max_auth_tries }}"
     dest: "/etc/ssh/sshd_config"
   when: sshd_config.stat.exists
+  register: action_5_2_5
   notify:
     - Restart sshd
   tags:
     - level-1
     - section-5
+    - "5.2.5"
+    - scored
+
+- name: 5.2.5 - Logging Task 'Ensure SSH MaxAuthTries is set to 4 or less'
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }} : 5.2.5 : 'MaxAuthTries 4' -> /etc/ssh/sshd_config"
+  when: action_5_2_5 is defined and action_5_2_5.changed 
+  tags:
+    - level-1
+    - section-1
     - "5.2.5"
     - scored

@@ -2,6 +2,12 @@
 ---
 
 # 5.2.9 - Ensure SSH PermitEmptyPasswords is disabled
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "5.2.9"
+    - scored
 
 - include: stat_sshd_config.yml
   tags:
@@ -13,13 +19,28 @@
 - name: 5.2.9 - Ensure SSH PermitEmptyPasswords is disabled
   lineinfile:
     regexp: "^PermitEmptyPasswords\\s+"
+    backup: yes
     line: "PermitEmptyPasswords no"
     dest: "/etc/ssh/sshd_config"
+    insertbefore: "^#PermitEmptyPasswords"
   when: sshd_config.stat.exists
+  register: action_5_2_9
   notify:
     - Restart sshd
   tags:
     - level-1
     - section-5
+    - "5.2.9"
+    - scored
+
+- name: 5.2.9 - Logging Task 'Ensure SSH PermitEmptyPasswords is disabled'
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }} : 5.2.9 : 'PermitEmptyPasswords no' -> /etc/ssh/sshd_config"
+  when: action_5_2_9 is defined and action_5_2_9.changed 
+  tags:
+    - level-1
+    - section-1
     - "5.2.9"
     - scored
