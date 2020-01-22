@@ -2,16 +2,36 @@
 ---
 
 # 5.1.7 Ensure permissions on /etc/cron.d are configured
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "5.1.7"
+    - scored
 
 - name: 5.1.7 - Ensure permissions on /etc/cron.d are configured
   file:
     path: "/etc/cron.d"
     owner: root
     group: root
-    mode: 0600
+    mode: '0600'
     state: directory
+  
+  register: action_5_1_7
   tags:
     - level-1
     - section-5
+    - "5.1.7"
+    - scored
+
+- name: 5.1.7 - Logging Task 'set ownership and permissions on /etc/cron.d'
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }} : 5.1.7 : chown root:root /etc/cron.d && chmod og-rwx /etc/cron.d"
+  when: action_5_1_7 is defined and action_5_1_7.changed 
+  tags:
+    - level-1
+    - section-1
     - "5.1.7"
     - scored

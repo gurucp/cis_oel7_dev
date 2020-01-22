@@ -22,7 +22,7 @@
     - "5.1.2"
     - scored
 
-- name: 5.1.2 - Logging Task 'Ensure cron daemon is enabled'
+- name: 5.1.2 - Logging Task 'Ensure permissions on /etc/crontab are configured'
   lineinfile:
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
