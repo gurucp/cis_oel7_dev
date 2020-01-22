@@ -68,9 +68,10 @@ cis_3_2_2_files:
 
 
 # 3.2.3
-cis_v_3_2_3_ipv4_conf_all_secure_redirects: { proc_src: '/proc/sys/net/ipv4/conf/all/secure_redirects', kernel_param: 'net.ipv4.conf.all.secure_redirects', value: 0 }
-cis_v_3_2_3_ipv4_conf_default_secure_redirects: { proc_src: '/proc/sys/net/ipv4/conf/default/secure_redirects', kernel_param: 'net.ipv4.conf.default.secure_redirects', value: 0 }
-cis_v_3_2_3_ipv4_route_flush: { proc_src: '/proc/sys/net/ipv4/route/flush', kernel_param: 'flush', value: 1 }
+cis_3_2_3_files:
+ - net.ipv4.conf.all.secure_redirects
+ - net.ipv4.conf.default.secure_redirects
+
 
 # 3.2.4
 cis_v_3_2_4_ipv4_conf_all_log_martians: { proc_src: '/proc/sys/net/ipv4/conf/all/log_martians', kernel_param: 'net.ipv4.conf.all.log_martians', value: 1 }
