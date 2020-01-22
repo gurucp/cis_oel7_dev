@@ -2,14 +2,34 @@
 ---
 
 # 3.4.1 Ensure TCP Wrappers is installed
+# Include date, time and process id finder
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "3.4.1"
+    - scored
 
 - name: 3.4.1 - Ensure TCP Wrappers is installed
   yum:
     name: "tcp_wrappers"
     state: latest
+  register: action_3_4_1
   tags:
     - level-1
     - section-3
     - "3.4.1"
     - scored
-    - skip_ansible_lint
+
+- name: 3.4.1 - Logging Task 'Ensure TCP Wrappers is installed'
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }} : 3.4.1 : 'yum install tcp_wrappers'"
+  when: action_3_4_1 is defined and action_3_4_1.changed 
+  
+  tags:
+    - level-1
+    - section-1
+    - "3.4.1"
+    - scored
