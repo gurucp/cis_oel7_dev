@@ -29,7 +29,6 @@
     create: yes
     line: "{{ date_time }} : {{ process_id }} : 3.4.5 : 'chown root:root /etc/hosts.deny and chmod 644 /etc/hosts.deny'"
   when: action_3_4_5 is defined and action_3_4_5.changed 
-  
   tags:
     - level-1
     - section-1
