@@ -21,6 +21,7 @@
     backup: yes
     regexp: "^PermitUserEnvironment\\s+"
     line: "PermitUserEnvironment no"
+    insertbefore: "^#PermitUserEnvironment"
     dest: "/etc/ssh/sshd_config"
   when: sshd_config.stat.exists
   register: action_5_2_10
