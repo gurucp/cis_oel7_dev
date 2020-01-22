@@ -20,7 +20,7 @@
   lineinfile:
     regexp: "^LoginGraceTime\\s+"
     line: "LoginGraceTime {{ cis_sshd_login_grace_time }}"
-    insertafter: "^# * LoginGraceTime"
+    insertbefore: "^# * LoginGraceTime"
     dest: "/etc/ssh/sshd_config"
   when: sshd_config.stat.exists
   register: action_5_2_13
