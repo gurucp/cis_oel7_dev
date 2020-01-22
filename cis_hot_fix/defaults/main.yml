@@ -79,8 +79,8 @@ cis_3_2_4_files:
   - 'net.ipv4.conf.default.log_martians'
 
 # 3.2.5
-cis_v_3_2_5_ipv4_icmp_echo_ignore_broadcasts: { proc_src: '/proc/sys/net/ipv4/icmp_echo_ignore_broadcasts', kernel_param: 'net.ipv4.icmp_echo_ignore_broadcasts', value: 1 }
-cis_v_3_2_5_ipv4_route_flush: { proc_src: '/proc/sys/net/ipv4/route/flush', kernel_param: 'flush', value: 1 }
+cis_3_2_5_files:
+  - 'net.ipv4.icmp_echo_ignore_broadcasts'
 
 
 # 3.2.6
