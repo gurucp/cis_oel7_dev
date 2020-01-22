@@ -18,7 +18,7 @@
   with_items:
     - "{{ cis_firewalld_install }}"
   when: cis_firewalld_install.state == "present"
-  register: action_3.6.1
+  register: action_3_6_1
   tags:
     - level-1
     - section-3
@@ -44,7 +44,7 @@
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
     line: "{{ date_time }} : {{ process_id }} : 3.6.1 : 'yum install iptables/firewald'"
-  when: action_3.6.1 is defined and action_3.6.1.changed 
+  when: action_3_6_1 is defined and action_3_6_1.changed 
   tags:
     - level-1
     - section-1
