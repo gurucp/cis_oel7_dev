@@ -18,10 +18,10 @@
 
 - name: 5.2.4 - Ensure SSH X11 forwarding is disabled
   lineinfile:
-    regexp: "^X11Forwarding\\s+"
+    regexp: "^?X11Forwarding\\s+"
     backup: yes
     line: "X11Forwarding no"
-    insertbefore: "^#\\s+X11Forwarding"
+    insertbefore: "^#?+X11Forwarding"
     dest: "/etc/ssh/sshd_config"
   when: sshd_config.stat.exists
   register: action_5_2_4
