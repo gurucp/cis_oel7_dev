@@ -2,11 +2,16 @@
 ---
 
 # 5.4.3 Ensure default group for the root account is GID 0
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "5.4.3"
+    - scored
 
 - name: 5.4.3 - Check the GID of the root group
   shell: 'grep "^root:" /etc/passwd | cut -f4 -d:'
-#  shell: "cat /etc/passwd | awk -F: '($3 == 0) { print $1 }'"
-  register: cat_5_4_3
+  register: result_5_4_3
   check_mode: no
   changed_when: False
   tags:
@@ -26,9 +31,24 @@
 
 - name: 5.4.3 - Ensure default group for the root account is GID 0
   command: usermod -g 0 root
-  when: cat_5_4_3.stdout is not defined or cat_5_4_3.stdout != "0"
+  when: result_5_4_3.stdout is not defined or result_5_4_3.stdout != "0"
+  register: action_5_4_3
   tags:
     - level-1
     - section-5
     - "5.4.3"
     - scored
+
+- name: '5.4.3 - Logging action - Ensure default group for the root account is GID 0'
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 1.5.3 : 'usermod -g 0 root'"
+  when: action_5_4_3 is defined and action_5_4_3.changed
+  
+  tags:
+    - level-1
+    - "5.4.3"
+    - scored
+
+  
