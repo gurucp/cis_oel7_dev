@@ -21,7 +21,7 @@
     regexp: "^X11Forwarding\\s+"
     backup: yes
     line: "X11Forwarding no"
-    insertbefore: "^#*X11Forwarding"
+    insertbefore: "^#\\s+X11Forwarding"
     dest: "/etc/ssh/sshd_config"
   when: sshd_config.stat.exists
   register: action_5_2_4
