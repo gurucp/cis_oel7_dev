@@ -1,5 +1,11 @@
-# Standards: 1.1.5
+# Standards: 2.1.0
 ---
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "6.1.11"
+    - scored
 
 # 6.1.11 Ensure no unowned files or directories exist
 
@@ -32,8 +38,21 @@
   when:
     - audit_6_1_11.stdout_lines is defined and audit_6_1_11.stdout_lines|length > 0
     - not fail_on_manual_remediation_actions
+  register: action_6_1_11
   tags:
     - level-1
     - section-6
+    - "6.1.11"
+    - scored
+
+- name: '6.1.11 - Logging action - Ensure no unowned files or directories exist'
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 6.1.11 : 'usermod -g 0 root'"
+  when: action_6_1_11 is defined and action_6_1_11.changed
+  
+  tags:
+    - level-1
     - "6.1.11"
     - scored

@@ -1,5 +1,6 @@
 # Standards: 2.1.0
 ---
+fail_on_manual_remediation_actions: yes
 
 ###############################################
 # Select Level 1/2 or both. For more details 
