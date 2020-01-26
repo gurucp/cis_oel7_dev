@@ -22,7 +22,7 @@
 
 - name: 5.4.3 - Display the output for the GID of the root group
   debug:
-    msg: The value of root GID is - {{ cat_5_4_3.stdout }}
+    msg: The value of root GID is - {{ result_5_4_3.stdout }}
   tags:
     - level-1
     - section-5
