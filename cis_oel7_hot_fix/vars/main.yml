@@ -18,5 +18,4 @@ cis_sysconfig_init_filename: "/etc/sysconfig/init"
 cis_security_limits_filename: "/etc/security/limits.conf"
 
 oci_exceptions_list:
-  - '1.1.1.1'
-  - '1.1.1.8'
+  - 1.1.1.1

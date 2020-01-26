@@ -8,6 +8,17 @@
     - scored
 
 # 1.1.1.8 - Ensure mounting of FAT filesystems is disabled
+- name: 1.1.1.8 - Ensure vfat filesystem is not beeing used
+  dmesg:
+  msg: "vfst kernel modules is used by - {{ item.mount }}"
+  when: "{{ item.fstype }} == 'xfs'"
+  with_items: "{{ ansible_mounts }}"
+  register: fs_state_1_1_1_8
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.8"
+    - scored
 
 - name: 1.1.1.8 - Check if CIS modprobe configuration file exists
   stat:
@@ -23,7 +34,9 @@
   copy:
     dest: "{{ cis_modprobe_conf_filename }}"
     content: "install vfat /bin/true\n"
-  when: modprobe_1_1_1_8.stat.exists is not defined or not modprobe_1_1_1_8.stat.exists
+  when:
+    - modprobe_1_1_1_8.stat.exists is not defined or not modprobe_1_1_1_8.stat.exists
+    - fs_state_1_1_1_8 not defined
   register: action_1_1_1_8_01
   tags:
     - level-1
