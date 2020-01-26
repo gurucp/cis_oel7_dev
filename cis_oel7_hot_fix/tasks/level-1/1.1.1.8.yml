@@ -11,6 +11,9 @@
 - name: 1.1.1.8 - Ensure vfat filesystem is not beeing used
   debug:
     msg: "vfst kernel modules is used by - {{ item.mount }}"
+  set_fact:
+    vfat_mod_used: True
+    fs_mod_used_by: item.mount
   when: "item.fstype == 'xfs'"
   with_items: "{{ ansible_mounts }}"
   register: fs_state_1_1_1_8
@@ -24,6 +27,7 @@
   stat:
     path: "{{ cis_modprobe_conf_filename }}"
   register: modprobe_1_1_1_8
+  when: vfat_mod_used != True
   tags:
     - level-1
     - section-1
@@ -36,7 +40,7 @@
     content: "install vfat /bin/true\n"
   when:
     - modprobe_1_1_1_8.stat.exists is not defined or not modprobe_1_1_1_8.stat.exists
-    - fs_state_1_1_1_8 not defined
+    - vfat_mod_used != True
   register: action_1_1_1_8_01
   tags:
     - level-1
@@ -49,7 +53,9 @@
     dest: "{{ cis_modprobe_conf_filename }}"
     regexp: "^install vfat"
     line: "install vfat /bin/true"
-  when: modprobe_1_1_1_8.stat.exists is defined and modprobe_1_1_1_8.stat.exists
+  when: 
+    - modprobe_1_1_1_8.stat.exists is defined and modprobe_1_1_1_8.stat.exists
+    - vfat_mod_used != True
   register: action_1_1_1_8_02
   tags:
     - level-1
@@ -61,6 +67,7 @@
   modprobe:
     name: vfat
     state: absent
+  when: vfat_mod_used != True
   register: action_1_1_1_8_03
   
   tags:
@@ -102,6 +109,19 @@
     create: yes
     line: "{{ date_time }} : {{ process_id }}: 1.1.1.8 : Execute 'rmmod vfat'"
   when: action_1_1_1_8_03 is defined and action_1_1_1_8_03.changed 
+
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.8"
+    - scored
+
+- name: 1.1.1.8 - Logging Task - vfat is being used
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 1.1.1.8 : *****WORNING Manual Change*** vfat modules is used by {{ fs_mod_used_by }}"
+  when: vfat_mod_used != True
 
   tags:
     - level-1
