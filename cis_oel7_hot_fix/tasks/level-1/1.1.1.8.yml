@@ -9,8 +9,6 @@
 
 # 1.1.1.8 - Ensure mounting of FAT filesystems is disabled
 - name: 1.1.1.8 - Ensure vfat filesystem is not beeing used
-  debug:
-    msg: "vfst kernel modules is used by - {{ item.mount }}"
   set_fact:
     vfat_mod_used: True
     fs_mod_used_by: item.mount
