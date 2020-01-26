@@ -21,6 +21,16 @@
     - "1.1.1.8"
     - scored
 
+- name: testing
+  debug:
+    msg: "{{vfat_mod_used}} and {{ fs_mod_used_by }}"
+  tags:
+    - level-1
+    - section-1
+    - "1.1.1.8"
+    - scored
+
+
 - name: 1.1.1.8 - Check if CIS modprobe configuration file exists
   stat:
     path: "{{ cis_modprobe_conf_filename }}"
