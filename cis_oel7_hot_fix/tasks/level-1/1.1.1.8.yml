@@ -12,7 +12,7 @@
   set_fact:
     vfat_mod_used: True
     fs_mod_used_by: '{{ item.mount }}'
-  when: "item.fstype == 'xfs'"
+  when: "item.fstype == 'vfat'"
   with_items: "{{ ansible_mounts }}"
   tags:
     - level-1
