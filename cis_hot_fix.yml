@@ -6,4 +6,5 @@
   become: yes
 
   roles:
-    - cis_hot_fix
+    - cis_oel7_hot_fix
+  
