@@ -1,7 +1,7 @@
 # Standards: 2.1.0
 ---
 
-# Preflight checks
+# Precheck checks
 
 - name: Precheck - Fail if host is not suitable for this benchmark
   fail:

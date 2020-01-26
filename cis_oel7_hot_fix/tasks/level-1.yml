@@ -1,4 +1,4 @@
-# Standards: 0.11
+# Standards: 2.1.0
 ---
 
 - include: "level-1/1.1.1.1.yml"
@@ -9,7 +9,6 @@
 - include: "level-1/1.1.1.6.yml"
 - include: "level-1/1.1.1.7.yml"
 - include: "level-1/1.1.1.8.yml"
-  when: cis_apply_on_oci is defined and cis_apply_on_oci == True
 - include: "level-1/1.1.14.yml"
 - include: "level-1/1.1.15.yml"
 - include: "level-1/1.1.16.yml"
