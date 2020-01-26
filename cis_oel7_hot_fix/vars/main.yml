@@ -16,3 +16,7 @@ cis_aide_database_filename: "/var/lib/aide/aide.db.gz"
 cis_grub_bootloader_filename: "/boot/grub2/grub.cfg"
 cis_sysconfig_init_filename: "/etc/sysconfig/init"
 cis_security_limits_filename: "/etc/security/limits.conf"
+
+oci_exceptions_list:
+  - '1.1.1.1'
+  - '1.1.1.8'

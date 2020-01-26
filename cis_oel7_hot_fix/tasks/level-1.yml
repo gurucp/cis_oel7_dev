@@ -9,6 +9,7 @@
 - include: "level-1/1.1.1.6.yml"
 - include: "level-1/1.1.1.7.yml"
 - include: "level-1/1.1.1.8.yml"
+  when: "'1.1.1.8' not in oci_exceptions_list"
 - include: "level-1/1.1.14.yml"
 - include: "level-1/1.1.15.yml"
 - include: "level-1/1.1.16.yml"

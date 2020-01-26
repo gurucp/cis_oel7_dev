@@ -13,7 +13,7 @@ cis_apply_level_2_profile: True
 ######################################################
 # If you are running this on OCI please set it to true
 ######################################################
-cis_apply_on_oci: Flase
+cis_apply_on_oci: True
 
 ######################################################
 # Local Exceptions
