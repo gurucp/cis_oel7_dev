@@ -1,5 +1,12 @@
-# Standards: 0.11
+# Standards: 2.1.0
 ---
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "6.2.7"
+    - scored
+
 
 # 6.2.7 Ensure all users' home directories exist
 
@@ -20,8 +27,22 @@
     home: "{{ item.split(':')[1] }}"
   when: audit_6_2_7.stdout_lines is defined and audit_6_2_7.stdout_lines|length > 0
   with_items: "{{ audit_6_2_7.stdout_lines }}"
+  register: action_6_2_7
   tags:
     - level-1
     - section-6
+    - "6.2.7"
+    - scored
+
+- name: '6.2.7 - Logging action - Ensure all users home directories exist'
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 6.2.7 : Create home dir for user {{ item.split(':')[0] }}"
+  with_items: "{{ audit_6_2_7.stdout_lines }}"
+  when: action_6_2_7 is defined and action_6_2_7.changed
+  
+  tags:
+    - level-1
     - "6.2.7"
     - scored

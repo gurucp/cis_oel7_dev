@@ -1,6 +1,11 @@
-# Standards: 0.11
+# Standards: 2.1.0
 ---
-
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "6.1.4"
+    - scored
 # 6.1.4 Ensure permissions on /etc/group are configured
 
 - name: 6.1.4 - Ensure permissions on /etc/group are configured
@@ -8,9 +13,22 @@
     path: /etc/group
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
+  register: action_6_1_4
   tags:
     - level-1
     - section-6
+    - "6.1.4"
+    - scored
+
+- name: '6.1.4 - Logging action - Ensure permissions on /etc/group are configured'
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 6.1.4 : 'chown root:root /etc/group && chmod 644 /etc/group'"
+  when: action_6_1_4 is defined and action_6_1_4.changed
+  
+  tags:
+    - level-1
     - "6.1.4"
     - scored

@@ -1,16 +1,54 @@
-# Standards: 0.11
+# Standards: 2.1.0
 ---
+- include: facts/date_time_pid.yml
+  tags:
+    - level-1
+    - section-1
+    - "6.1.7"
+    - scored
 
-# 6.1.7 Ensure permissions on /etc/shadow- are configured
-
-- name: 6.1.7 - Ensure permissions on /etc/shadow- are configured
-  file:
-    path: /etc/shadow-
-    owner: root
-    group: root
-    mode: 0000
+- name: 6.1.6 - Discover permissions on /etc/passwd- (as Ansible cannot file it)
+  stat:
+    path: "/etc/passwd-"
+  register: cis_st_shadow
   tags:
     - level-1
     - section-6
+    - "6.1.7"
+    - scored
+
+
+- name: 6.1.7 - Display the file /etc/shadow- mode
+  debug:
+    msg: The file mode is {{ cis_st_shadow.stat.mode }} expecting 0600
+  tags:
+    - level-1
+    - section-6
+    - "6.1.7"
+    - scored
+
+- name: 6.1.7 - Ensure permissions on /etc/shadow- are configured
+  file:
+    path: "/etc/shadow-"
+    owner: root
+    group: root
+    mode: '000'
+  when: cis_st_shadow.stat.mode != 0600
+  register: action_6_1_7
+  tags:
+    - level-1
+    - section-6
+    - "6.1.7"
+    - scored
+
+- name: '6.1.7 - Logging action - Ensure permissions on //etc/shadow- are configured'
+  lineinfile:
+    path: "{{ cis_hot_fix_ansible_log }}"
+    create: yes
+    line: "{{ date_time }} : {{ process_id }}: 6.1.7 : 'chown root:root /etc/shadow- && chmod u-x,go-wx /etc/shadow-'"
+  when: action_6_1_7 is defined and action_6_1_7.changed
+  
+  tags:
+    - level-1
     - "6.1.7"
     - scored
