@@ -8,7 +8,7 @@
     - scored
 
 # 1.1.1.8 - Ensure mounting of FAT filesystems is disabled
-- name: 1.1.1.8 - Ensure vfat filesystem is not beeing used
+- name: 1.1.1.8 - Ensure vfat filesystem is not being used
   set_fact:
     vfat_mod_used: True
     fs_mod_used_by: '{{ item.mount }}'
@@ -23,7 +23,11 @@
 
 - name: testing
   debug:
-    msg: "{{vfat_mod_used}} and {{ fs_mod_used_by }}"
+    msg: "vfat fs is used by: {{ fs_mod_used_by }}"
+  when:
+    - fs_state_1_1_1_8 is defined and fs_state_1_1_1_8.changed
+    - fs_mod_used_by is defined
+
   tags:
     - level-1
     - section-1
