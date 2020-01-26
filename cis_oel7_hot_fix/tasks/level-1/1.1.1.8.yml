@@ -11,7 +11,7 @@
 - name: 1.1.1.8 - Ensure vfat filesystem is not beeing used
   set_fact:
     vfat_mod_used: True
-    fs_mod_used_by: item.mount
+    fs_mod_used_by: '{{ item.mount }}'
   when: "item.fstype == 'xfs'"
   with_items: "{{ ansible_mounts }}"
   register: fs_state_1_1_1_8
