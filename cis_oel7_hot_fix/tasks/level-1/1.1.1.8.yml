@@ -11,7 +11,7 @@
 - name: 1.1.1.8 - Ensure vfat filesystem is not beeing used
   debug:
     msg: "vfst kernel modules is used by - {{ item.mount }}"
-  when: "{{ item.fstype }} == 'xfs'"
+  when: "item.fstype == 'xfs'"
   with_items: "{{ ansible_mounts }}"
   register: fs_state_1_1_1_8
   tags:
