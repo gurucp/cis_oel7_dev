@@ -36,7 +36,7 @@
     path: "{{ cis_hot_fix_ansible_log }}"
     create: yes
     line: "{{ date_time }} : {{ process_id }}: 6.2.5 : *** ACTION REQUIRED *** root is not the only UID 0 account"
-  when: - cat_6_2_5.stdout_lines is defined and (cat_6_2_5.stdout_lines|length > 1 or (cat_6_2_5.stdout_lines|length == 1 and 'root' not in cat_6_2_5.stdout_lines))
+  when: cat_6_2_5.stdout_lines is defined and (cat_6_2_5.stdout_lines|length > 1 or (cat_6_2_5.stdout_lines|length == 1 and 'root' not in cat_6_2_5.stdout_lines))
   
   tags:
     - level-1
