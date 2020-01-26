@@ -10,7 +10,7 @@
 # 1.1.1.8 - Ensure mounting of FAT filesystems is disabled
 - name: 1.1.1.8 - Ensure vfat filesystem is not beeing used
   dmesg:
-  msg: "vfst kernel modules is used by - {{ item.mount }}"
+    msg: "vfst kernel modules is used by - {{ item.mount }}"
   when: "{{ item.fstype }} == 'xfs'"
   with_items: "{{ ansible_mounts }}"
   register: fs_state_1_1_1_8
