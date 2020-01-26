@@ -10,7 +10,6 @@
 - include: "level-1/1.1.1.7.yml"
 - include: "level-1/1.1.1.8.yml"
   when: cis_apply_on_oci is defined and cis_apply_on_oci == false
-
 - include: "level-1/1.1.14.yml"
 - include: "level-1/1.1.15.yml"
 - include: "level-1/1.1.16.yml"
@@ -69,7 +68,6 @@
 - include: "level-1/5.2.6.yml"
 - include: "level-1/5.2.7.yml"
 - include: "level-1/5.4.3.yml"
-#- include: "level-1/5.2.8.yml"
 - include: "level-1/5.2.9.yml"
 - include: "level-1/6.1.11.yml"
 - include: "level-1/6.1.12.yml"
