@@ -84,6 +84,7 @@
 - include: "level-1/6.1.8.yml"
 - include: "level-1/6.1.8.yml"
 - include: "level-1/6.2.15.yml"
+- include: "level-1/6.2.3.yml"
 - include: "level-1/6.2.4.yml"
 - include: "level-1/6.2.5.yml"
 - include: "level-1/6.2.7.yml"
